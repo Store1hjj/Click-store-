@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Click Store | Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* === الألوان والتصميم الأساسي (Dark Neon) === */
+        :root {
+            --bg-main: #07070a;
+            --bg-card: rgba(20, 20, 30, 0.6);
+            --primary: #8b5cf6;
+            --primary-glow: rgba(139, 92, 246, 0.5);
+            --accent: #d946ef;
+            --text-main: #ffffff;
+            --text-sub: #9ca3af;
+            --border: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            background-color: var(--bg-main); color: var(--text-main);
+            overflow-x: hidden; padding-bottom: 100px;
+            background-image: radial-gradient(circle at top right, rgba(139, 92, 246, 0.15), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(217, 70, 239, 0.1), transparent 40%);
+        }
+
+        /* === شريط التنقل العلوي ثابت === */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(7, 7, 10, 0.8); backdrop-filter: blur(15px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 20px; z-index: 1000; border-bottom: 1px solid var(--border);
+        }
+        .nav-brand { font-size: 1.5rem; font-weight: 900; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-cart-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            color: #fff; width: 45px; height: 45px; border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; cursor: pointer; position: relative; transition: 0.3s;
+        }
+        .nav-cart-btn:hover { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
+        .cart-badge {
+            position: absolute; top: -5px; right: -5px; background: var(--accent);
+            color: #fff; font-size: 0.75rem; font-weight: bold;
+            width: 20px; height: 20px; border-radius: 50%; display: flex;
+            justify-content: center; align-items: center;
+        }
+
+        /* === منطقة الهيدر (العنوان) === */
+        .hero { text-align: center; padding: 100px 20px 40px; }
+        .hero h1 { font-size: 2.5rem; font-weight: 900; line-height: 1.2; margin-bottom: 10px; }
+        .hero p { color: var(--text-sub); font-size: 1rem; }
+
+        /* === شبكة المنتجات === */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: grid; gap: 20px; grid-template-columns: repeat(2, 1fr); }
+        @media (min-width: 768px) { .container { grid-template-columns: repeat(4, 1fr); } }
+
+        /* === بطاقة المنتج === */
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 20px; padding: 12px; display: flex; flex-direction: column;
+            position: relative; transition: all 0.3s ease; overflow: hidden;
+        }
+        .card:hover { transform: translateY(-5px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 14px; overflow: hidden; position: relative; margin-bottom: 12px; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .card:hover .img-box img { transform: scale(1.05); }
+
+        /* ختم نفذت الكمية */
+        .sold-out-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 10;
+        }
+        .sold-out-stamp {
+            background: transparent; color: #ef4444; font-weight: 900; font-size: 1.5rem;
+            padding: 5px 15px; border: 3px solid #ef4444; border-radius: 10px;
+            transform: rotate(-15deg); backdrop-filter: blur(2px); text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+            box-shadow: inset 0 0 10px rgba(239,68,68,0.3), 0 0 15px rgba(239,68,68,0.2);
+        }
+
+        .prod-title { font-weight: 800; font-size: 1rem; color: #fff; margin-bottom: 10px; text-align: center; }
+        
+        /* اختيار المدة */
+        .variant-select {
+            width: 100%; padding: 12px; background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border); border-radius: 10px;
+            color: #fff; outline: none; margin-bottom: 12px; font-weight: 600;
+            appearance: none; text-align: center;
+        }
+        .variant-select:focus { border-color: var(--primary); }
+
+        /* السعر وزر الإضافة */
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .price-tag { font-weight: 800; color: var(--accent); font-size: 1.1rem; }
+        .btn-add {
+            background: rgba(255,255,255,0.05); color: #fff;
+            border: 1px solid var(--border); width: 40px; height: 40px;
+            border-radius: 12px; font-size: 1.2rem; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: 0.2s;
+        }
+        .btn-add:hover { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
+
+        /* === نافذة الدفع (المودال) === */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+            z-index: 2000; display: none; justify-content: center; align-items: flex-end;
+        }
+        .modal-content {
+            background: #111116; width: 100%; max-width: 500px;
+            border-radius: 25px 25px 0 0; padding: 25px; border-top: 1px solid var(--primary);
+            box-shadow: 0 -10px 40px var(--primary-glow); animation: slideUp 0.3s; max-height: 90vh; overflow-y: auto;
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        
+        /* === لوحة تحكم المدير (Admin Dashboard) === */
+        #adminView { display: none; padding-top: 80px; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .admin-stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px; }
+        .stat-card {
+            background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 20px; border-radius: 16px; text-align: center;
+        }
+        .stat-card h3 { color: var(--text-sub); font-size: 0.9rem; margin-bottom: 10px; }
+        .stat-card .value { font-size: 2rem; font-weight: 900; color: #fff; text-shadow: 0 0 10px var(--primary-glow); }
+        .admin-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: 16px; overflow: hidden; }
+        .admin-table th, .admin-table td { padding: 15px; text-align: right; border-bottom: 1px solid var(--border); }
+        .admin-table th { background: rgba(0,0,0,0.5); color: var(--primary); }
+
+        /* دوار التحميل */
+        .loader { width: 40px; height: 40px; border: 4px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 50px auto; grid-column: 1/-1; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="storeView">
+        <nav class="navbar">
+            <div class="nav-brand">Click Store</div>
+            <div class="nav-cart-btn" onclick="openCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <div class="cart-badge" id="cartCount">0</div>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <h1>اكتشف عالم<br><span style="color: var(--primary);">الاشتراكات الرقمية</span></h1>
+            <p>خدمة فورية، أسعار تنافسية، وضمان كامل.</p>
+        </div>
+
+        <div class="container" id="productsGrid">
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <div id="adminView" class="container">
+        <div class="admin-header">
+            <h2><i class="fas fa-shield-alt" style="color:var(--primary)"></i> لوحة الإدارة الذكية</h2>
+            <button onclick="window.location.href='?'" style="padding:10px 20px; border-radius:10px; background:rgba(255,255,255,0.1); color:#fff; border:none; cursor:pointer;">العودة للمتجر</button>
+        </div>
+
+        <div class="admin-stat-grid">
+            <div class="stat-card">
+                <h3>المنتجات النشطة</h3>
+                <div class="value" id="adminActiveProds">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>إجمالي المنتجات</h3>
+                <div class="value" id="adminTotalProds">0</div>
+            </div>
+            <div class="stat-card" style="grid-column: 1/-1;">
+                <h3>أرباح اليوم (قريباً عبر Apps Script)</h3>
+                <div class="value" style="color:var(--accent)">0 DA</div>
+            </div>
+        </div>
+
+        <h3 style="margin-bottom: 15px; color:var(--primary);">المنتجات الحالية في قاعدة البيانات:</h3>
+        <div style="overflow-x: auto;">
+            <table class="admin-table">
+                <thead><tr><th>المنتج</th><th>الحالة</th><th>السعر الأساسي</th></tr></thead>
+                <tbody id="adminTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; align-items:center;">
+                <h2 style="font-weight:900;">🛒 سلة المشتريات</h2>
+                <button onclick="closeCart()" style="background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer;">&times;</button>
+            </div>
+
+            <div id="cartItems" style="max-height: 200px; overflow-y: auto; margin-bottom:20px;"></div>
+
+            <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+                <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.2rem;">
+                    <span>الإجمالي:</span>
+                    <span style="color:var(--accent)" id="cartTotal">0 DA</span>
+                </div>
+            </div>
+
+            <input type="tel" id="clientPhone" placeholder="رقم هاتفك (مثال: 055...)" style="width:100%; padding:15px; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:12px; color:#fff; margin-bottom:15px; outline:none; font-size:1rem;">
+            
+            <button onclick="checkout()" style="width:100%; padding:15px; background:var(--primary); color:#fff; border:none; border-radius:12px; font-weight:bold; font-size:1.1rem; cursor:pointer;">إرسال الطلب عبر تليجرام 🚀</button>
+        </div>
+    </div>
+
+    <script>
+        // إعدادات قاعدة البيانات (لا تلمسها، مربوطة بمستودعك)
+        const GITHUB_USER = "Store1hjj";
+        const GITHUB_REPO = "Click-store-";
+        
+        let products = [];
+        let cart = [];
+
+        // التحقق من الرابط السري للآدمن
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAdmin = urlParams.get('admin') === 'Kx9_Admin_Pro_Secret_2026_vX';
+
+        if(isAdmin) {
+            document.getElementById('storeView').style.display = 'none';
+            document.getElementById('adminView').style.display = 'block';
+        }
+
+        // جلب المنتجات المباشر من GitHub وبدون مشاكل الكاش
+        async function fetchProducts() {
+            try {
+                const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/products.json?v=${new Date().getTime()}`;
+                const response = await fetch(url);
+                if(response.ok) {
+                    products = await response.json();
+                    if(isAdmin) renderAdminPanel();
+                    else renderProducts();
+                } else {
+                    document.getElementById('productsGrid').innerHTML = '<p style="text-align:center; color:red; grid-column:1/-1;">لم يتم العثور على منتجات. تأكد من إضافة منتج عبر البوت أولاً.</p>';
+                }
+            } catch(error) {
+                console.error("Error fetching:", error);
+                document.getElementById('productsGrid').innerHTML = '<p style="text-align:center; color:red; grid-column:1/-1;">حدث خطأ في الاتصال بقاعدة البيانات.</p>';
+            }
+        }
+
+        // رسم المنتجات في المتجر
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            products.forEach(prod => {
+                const isActive = prod.active !== false;
+                const durations = String(prod.duration).split('\n');
+                const prices = String(prod.price).split('\n');
+                
+                let optionsHtml = '';
+                durations.forEach((dur, i) => {
+                    if(dur.trim() !== '') {
+                        let price = prices[i] ? prices[i].trim() : prices[0].trim();
+                        optionsHtml += `<option value="${price}" data-dur="${dur.trim()}">${dur.trim()}</option>`;
+                    }
+                });
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="img-box">
+                        <img src="${prod.image}" alt="${prod.name}" onerror="this.src='https://via.placeholder.com/300'">
+                        ${!isActive ? `<div class="sold-out-overlay"><div class="sold-out-stamp">نفذت الكمية</div></div>` : ''}
+                    </div>
+                    <div class="prod-title">${prod.name}</div>
+                    <select class="variant-select" id="sel-${prod.id}" onchange="updatePriceDisplay('${prod.id}')" ${!isActive ? 'disabled' : ''}>
+                        ${optionsHtml}
+                    </select>
+                    <div class="price-row">
+                        <div class="btn-add" onclick="${isActive ? `addToCart('${prod.id}', '${prod.name.replace(/'/g, "\\'")}')` : ''}" style="${!isActive ? 'opacity:0.5; cursor:not-allowed;' : ''}">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="price-tag" id="price-disp-${prod.id}">${prices[0]} دج</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // تحديث السعر المعروض عند تغيير المدة
+        function updatePriceDisplay(id) {
+            const select = document.getElementById(`sel-${id}`);
+            document.getElementById(`price-disp-${id}`).innerText = select.value + " دج";
+        }
+
+        // إضافة للسلة
+        function addToCart(id, name) {
+            const select = document.getElementById(`sel-${id}`);
+            const price = parseInt(select.value);
+            const duration = select.options[select.selectedIndex].getAttribute('data-dur');
+            
+            const key = `${id}-${duration}`;
+            let item = cart.find(x => x.key === key);
+            
+            if(item) { item.qty++; } 
+            else { cart.push({ key, name, duration, price, qty: 1 }); }
+            
+            updateCartUI();
+            
+            // تأثير حركي خفيف على السلة
+            const cartBtn = document.querySelector('.nav-cart-btn');
+            cartBtn.style.transform = 'scale(1.2)';
+            setTimeout(() => cartBtn.style.transform = 'scale(1)', 200);
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCount').innerText = count;
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('cartTotal').innerText = total + " DA";
+            
+            const list = document.getElementById('cartItems');
+            if(cart.length === 0) {
+                list.innerHTML = '<p style="text-align:center; color:var(--text-sub);">السلة فارغة</p>';
+            } else {
+                list.innerHTML = cart.map((i, idx) => `
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; margin-bottom:8px;">
+                        <div>
+                            <div style="font-weight:bold;">${i.name}</div>
+                            <div style="font-size:0.85rem; color:var(--text-sub);">${i.duration} - ${i.price} دج</div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <span style="font-weight:900; color:var(--primary)">x${i.qty}</span>
+                            <button onclick="removeFromCart(${idx})" style="background:none; border:none; color:#ef4444; cursor:pointer;"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function removeFromCart(idx) {
+            cart.splice(idx, 1);
+            updateCartUI();
+        }
+
+        function openCart() { document.getElementById('cartModal').style.display = 'flex'; updateCartUI(); }
+        function closeCart() { document.getElementById('cartModal').style.display = 'none'; }
+
+        // إرسال الطلب
+        function checkout() {
+            const phone = document.getElementById('clientPhone').value;
+            if(cart.length === 0) { alert('السلة فارغة!'); return; }
+            if(phone.length < 9) { alert('يرجى إدخال رقم هاتف صحيح!'); return; }
+            
+            let msg = `🛒 *طلب جديد من الموقع*\n\n`;
+            cart.forEach(i => msg += `▪️ ${i.name} (${i.duration}) ✖️ ${i.qty}\n`);
+            msg += `\n💰 *الإجمالي:* ${document.getElementById('cartTotal').innerText}\n📱 *الهاتف:* ${phone}`;
+            
+            // قم بتغيير رقم الهاتف هنا إلى رقمك
+            window.location.href = `https://wa.me/213000000000?text=${encodeURIComponent(msg)}`;
+        }
+
+        // رسم لوحة تحكم المدير
+        function renderAdminPanel() {
+            const activeCount = products.filter(p => p.active !== false).length;
+            document.getElementById('adminActiveProds').innerText = activeCount;
+            document.getElementById('adminTotalProds').innerText = products.length;
+
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = products.map(p => `
+                <tr>
+                    <td style="font-weight:bold;">${p.name}</td>
+                    <td>${p.active !== false ? '<span style="color:#10b981;">🟢 متوفر</span>' : '<span style="color:#ef4444;">🔴 نفذت الكمية</span>'}</td>
+                    <td>${String(p.price).split('\n')[0]} دج</td>
+                </tr>
+            `).join('');
+        }
+
+        // تشغيل الجلب عند فتح الصفحة
+        fetchProducts();
+    </script>
+</body>
+</html>
