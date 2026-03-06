@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Click Store | Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1249023119992263');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1249023119992263&ev=PageView&noscript=1"
+    /></noscript>
+    </head>
+<body>
+    <div id="storeView">
+        <nav class="navbar">
+            <div class="nav-brand">Click Store</div>
+            <div class="nav-actions">
+                <button class="lang-btn" onclick="toggleLanguage()"><i class="fas fa-globe"></i> FR</button>
+                <div class="nav-cart-btn" onclick="openCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <div class="cart-badge" id="cartCount">0</div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <h1 data-i18n="hero_title">الاشتراكات الرقمية <span style="color: var(--primary);">الأفضل عالمياً</span></h1>
+            <p style="color: var(--text-sub)" data-i18n="hero_sub">خدمة فورية، أسعار تنافسية، وضمان كامل 💯</p>
+        </div>
+
+        <div class="container" id="productsGrid">
+            <div class="loader"></div>
+        </div>
+
+        <a href="https://wa.me/213696357483" class="float-wa" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <div class="float-cart-bar" id="floatBar">
+            <div class="bar-info">
+                <span class="bar-label" data-i18n="bar_total_label">الإجمالي الحالي:</span>
+                <span class="bar-total" id="barTotal">0 دج</span>
+            </div>
+            <button class="btn-confirm-bar" onclick="openCart()" data-i18n="bar_btn">أكمل وأكد طلبك 🚀</button>
+        </div>
+    </div>
+
+    <div id="adminView" style="display:none;">
+        <div class="admin-header-title admin-anim d-1"><i class="fas fa-chess-king"></i> لوحة تحكم الإدارة</div>
+        <div class="admin-grid"></div> 
+    </div>
+
+    <div class="modal" id="cartModal">
+        <div class="modal-content" id="cartContentArea">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; align-items:center;">
+                <h2 style="font-weight:900;" data-i18n="cart_title"><i class="fas fa-shopping-cart"></i> السلة</h2>
+                <button onclick="closeCart()" style="background:none; border:none; color:#fff; font-size:1.8rem; cursor:pointer;">&times;</button>
+            </div>
+
+            <div id="cartItems" style="max-height: 200px; overflow-y: auto; margin-bottom:15px; direction: ltr;"></div>
+
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <input type="text" id="promoInput" class="input-style" style="margin:0; flex:1;" placeholder="لديك كود تخفيض؟">
+                <button onclick="applyPromoClient()" style="background:var(--accent); color:#fff; border:none; border-radius:5px; padding:0 15px;">تفعيل</button>
+            </div>
+
+            <div class="payment-box">
+                <div style="display:flex; justify-content:space-between; font-weight:900; font-size:1.3rem; margin-bottom:15px;">
+                    <span data-i18n="total_label">الإجمالي:</span>
+                    <span style="color:var(--accent); direction: ltr;" id="cartTotal">0 دج</span>
+                </div>
+
+                <label style="color:#9ca3af; font-size:0.95rem; font-weight:bold;" data-i18n="pay_method_label">اختر طريقة الدفع</label>
+                <select id="payMethod" class="payment-selector" onchange="calcTotal()" style="direction: ltr;">
+                    <option value="ccp">BaridiMob / CCP</option>
+                    <option value="binance">Binance (USDT)</option>
+                    <option value="redotpay">RedotPay (USDT)</option>
+                    <option value="flexy">Flexy (فليكسي)</option>
+                </select>
+
+                <input type="tel" id="clientPhone" class="input-style" placeholder="رقم هاتفك / Numéro de tel" style="direction: ltr;">
+
+                <div class="file-upload-wrapper">
+                    <input type="file" id="receiptFile" class="file-upload-input" accept="image/*" onchange="document.getElementById('fileBtnText').innerText = this.files[0].name">
+                    <div class="file-upload-btn" id="fileBtnText"><i class="fas fa-upload"></i> <span data-i18n="upload_btn">إرفاق وصل الدفع</span></div>
+                </div>
+
+                <button onclick="checkout();" class="btn-checkout">
+                    <i class="fas fa-paper-plane"></i> <span data-i18n="checkout_btn">تأكيد الطلب</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
