@@ -21,7 +21,7 @@
         "price": "300",
         "duration": "1mois",
         "image": "https://drive.google.com/thumbnail?id=1ZrircVaJpfrHIDBuuDy28UkiGKFD4cLK&sz=w800",
-        "active": false
+        "active": true
     },
     {
         "id": "p_1772764541",
