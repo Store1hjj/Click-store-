@@ -1,13 +1,5 @@
 [
     {
-        "id": "p1772812162",
-        "name": "يوسف للبيع",
-        "price": "900",
-        "duration": "12mois",
-        "image": "I",
-        "active": true
-    },
-    {
         "id": "p_1772576415",
         "name": "Netflix",
         "price": "2000",
