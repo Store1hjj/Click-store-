@@ -1,5 +1,14 @@
 [
     {
+        "id": "p1773268208",
+        "name": "Python",
+        "price": "900da",
+        "duration": "1mois",
+        "image": "https://drive.google.com/thumbnail?id=12Cs7XVXZTj129v3A8j4TyPYippQ6kesr&sz=w800",
+        "category": "🤖 الذكاء الاصطناعي",
+        "active": true
+    },
+    {
         "id": "p1773268000",
         "name": "Nnn",
         "price": "900",
