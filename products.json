@@ -13,19 +13,6 @@
         "active": true
     },
     {
-        "id": "p1773295953",
-        "name": "Netflix",
-        "price": [
-            "900"
-        ],
-        "duration": [
-            "1mois"
-        ],
-        "image": "https://drive.google.com/thumbnail?id=1XDBmrmn-TE8VvtKrj-OBpUG7-Iw73Lte&sz=w800",
-        "category": "🎬 الترفيه والمشاهدة",
-        "active": true
-    },
-    {
         "id": "p1773296029",
         "name": "Gemini Pro",
         "price": [
@@ -36,6 +23,19 @@
         ],
         "image": "https://drive.google.com/thumbnail?id=1fiELxDQcX8mI0JG1J1Qmore7LFJ5WUBn&sz=w800",
         "category": "🤖 الذكاء الاصطناعي",
+        "active": true
+    },
+    {
+        "id": "p1773295953",
+        "name": "Netflix",
+        "price": [
+            "900"
+        ],
+        "duration": [
+            "1mois"
+        ],
+        "image": "https://drive.google.com/thumbnail?id=1XDBmrmn-TE8VvtKrj-OBpUG7-Iw73Lte&sz=w800",
+        "category": "🎬 الترفيه والمشاهدة",
         "active": true
     }
 ]
