@@ -1,22 +1,5 @@
 [
     {
-        "id": "p1773294606",
-        "name": "N-Vision",
-        "price": [
-            "9",
-            "9",
-            "9"
-        ],
-        "duration": [
-            "000",
-            "000",
-            "00"
-        ],
-        "image": "https://drive.google.com/thumbnail?id=1LwL7XpGIyzjdJwlR60JlaO0utKUZ5KNJ&sz=w800",
-        "category": "🔥 الأكثر مبيعاً",
-        "active": true
-    },
-    {
         "id": "p1773268208",
         "name": "Python",
         "price": "900da",
