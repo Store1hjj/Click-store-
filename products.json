@@ -10,7 +10,7 @@
         ],
         "image": "https://drive.google.com/thumbnail?id=1fiELxDQcX8mI0JG1J1Qmore7LFJ5WUBn&sz=w800",
         "category": "🔥 الأكثر مبيعاً",
-        "active": false
+        "active": true
     },
     {
         "id": "p1773296029",
@@ -23,7 +23,7 @@
         ],
         "image": "https://drive.google.com/thumbnail?id=1fiELxDQcX8mI0JG1J1Qmore7LFJ5WUBn&sz=w800",
         "category": "🤖 الذكاء الاصطناعي",
-        "active": false
+        "active": true
     },
     {
         "id": "p1773295953",
