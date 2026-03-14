@@ -69,5 +69,24 @@
         "image": "https://drive.google.com/thumbnail?id=1MT-x8re5YGPJkz_ZZgi_Q2I7xxsLXbWX&sz=w800",
         "category": "🎬 الترفيه والمشاهدة",
         "active": true
+    },
+    {
+        "id": "p1773505469",
+        "name": "Crunchyroll",
+        "price": [
+            "500",
+            "1200",
+            "1800",
+            "2400"
+        ],
+        "duration": [
+            "1mois",
+            "3mois",
+            "6mois",
+            "12mois"
+        ],
+        "image": "https://drive.google.com/thumbnail?id=1yqHYKTlMym_0gXpxsU8joEBLUemG7Mrr&sz=w800",
+        "category": "🎬 الترفيه والمشاهدة",
+        "active": true
     }
 ]
