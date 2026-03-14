@@ -50,5 +50,24 @@
         "image": "https://drive.google.com/thumbnail?id=1yx7qSbGbnB7KXpHq3U6u69rJZY5Q0HYB&sz=w800",
         "category": "🎬 الترفيه والمشاهدة",
         "active": true
+    },
+    {
+        "id": "p1773505367",
+        "name": "Spotify",
+        "price": [
+            "800",
+            "1900",
+            "3400",
+            "5800"
+        ],
+        "duration": [
+            "1mois",
+            "3mois",
+            "6mois",
+            "12mois"
+        ],
+        "image": "https://drive.google.com/thumbnail?id=1MT-x8re5YGPJkz_ZZgi_Q2I7xxsLXbWX&sz=w800",
+        "category": "🎬 الترفيه والمشاهدة",
+        "active": true
     }
 ]
