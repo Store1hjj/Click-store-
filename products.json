@@ -88,5 +88,22 @@
         "image": "https://drive.google.com/thumbnail?id=1yqHYKTlMym_0gXpxsU8joEBLUemG7Mrr&sz=w800",
         "category": "🎬 الترفيه والمشاهدة",
         "active": true
+    },
+    {
+        "id": "p1773507077",
+        "name": "Prime Video",
+        "price": [
+            "500",
+            "1300",
+            "1600"
+        ],
+        "duration": [
+            "1mois",
+            "3mois",
+            "6mois"
+        ],
+        "image": "https://drive.google.com/thumbnail?id=15UoO-KVRrTjYqEaV929WngCTO6nRr084&sz=w800",
+        "category": "🎬 الترفيه والمشاهدة",
+        "active": true
     }
 ]
