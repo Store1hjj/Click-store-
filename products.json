@@ -118,5 +118,18 @@
         "image": "https://drive.google.com/thumbnail?id=11q0_2jqnRrq53ZckNhX2haoa_qgSs8EU&sz=w800",
         "category": "🎨 التصميم والمونتاج",
         "active": true
+    },
+    {
+        "id": "p1774880529",
+        "name": "Duolingo",
+        "price": [
+            "500"
+        ],
+        "duration": [
+            "12mois"
+        ],
+        "image": "https://drive.google.com/thumbnail?id=1R5bxabuC0YMYl-rj34D-8CUi-Ae3AC4j&sz=w800",
+        "category": "📚 التعليم واللغات",
+        "active": true
     }
 ]
