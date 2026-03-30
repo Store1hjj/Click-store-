@@ -202,5 +202,24 @@
         "image": "https://drive.google.com/thumbnail?id=1rxGqHqQlg2rfXxzZAufCtDsLiGWuLKog&sz=w800",
         "category": "🎬 الترفيه والمشاهدة",
         "active": true
+    },
+    {
+        "id": "p1774881044",
+        "name": "adobe creative cloud logo",
+        "price": [
+            "1500",
+            "4000",
+            "6900",
+            "9800"
+        ],
+        "duration": [
+            "1mois",
+            "3mois",
+            "6mois",
+            "12mois"
+        ],
+        "image": "https://drive.google.com/thumbnail?id=19uinH3RWCxSeU9XhJoLWfcS_CGcGKH5k&sz=w800",
+        "category": "🎨 التصميم والمونتاج",
+        "active": true
     }
 ]
