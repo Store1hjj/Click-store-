@@ -187,5 +187,20 @@
         "image": "https://drive.google.com/thumbnail?id=1JtAR6BfoZja4ikT328cpC9jkfuhteCbS&sz=w800",
         "category": "🎬 الترفيه والمشاهدة",
         "active": true
+    },
+    {
+        "id": "p1774880934",
+        "name": "Shaid",
+        "price": [
+            "600",
+            "3900"
+        ],
+        "duration": [
+            "1mois",
+            "12mois"
+        ],
+        "image": "https://drive.google.com/thumbnail?id=1rxGqHqQlg2rfXxzZAufCtDsLiGWuLKog&sz=w800",
+        "category": "🎬 الترفيه والمشاهدة",
+        "active": true
     }
 ]
