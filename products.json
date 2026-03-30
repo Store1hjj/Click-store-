@@ -131,5 +131,20 @@
         "image": "https://drive.google.com/thumbnail?id=1R5bxabuC0YMYl-rj34D-8CUi-Ae3AC4j&sz=w800",
         "category": "📚 التعليم واللغات",
         "active": true
+    },
+    {
+        "id": "p1774880674",
+        "name": "Capcut",
+        "price": [
+            "1000",
+            "4800"
+        ],
+        "duration": [
+            "1mois",
+            "6mois"
+        ],
+        "image": "https://drive.google.com/thumbnail?id=1xe5ljMZZ4Bi-BAza3DjFuduWfkF4svGL&sz=w800",
+        "category": "🎨 التصميم والمونتاج",
+        "active": true
     }
 ]
